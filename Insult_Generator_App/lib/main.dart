@@ -17,9 +17,11 @@ class _MyAppState extends State<MyApp>{
     return new MaterialApp(home: new Scaffold(
       body:new Center(
         child: new Column(
-          children: <Widget>[
+          children: <Widget>[new Expanded(child: new Container()),
             new Text(insult),
-            new RaisedButton(onPressed: newInsult)
+            new Expanded(child: new Container()),
+            new RaisedButton(onPressed: newInsult,child: new Text("Press for new insult")),
+            new Expanded(child: new Container())
           ]
         )
       )
@@ -29,6 +31,8 @@ class _MyAppState extends State<MyApp>{
   void newInsult()async{
     Response r = await get("https://evilinsult.com/generate_insult.php?lang=en&type=json");
     Map<String,dynamic> s = jsonDecode(r.body);
-    insult = s["insult"];
+    setState(() {
+      insult = s["insult"];
+    });
   }
 }
